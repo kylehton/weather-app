@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: white; /* White background */
+  color: black; /* Black text */
+}
+
+main {
+  /* Ensure that the main content has black text */
+  color: inherit; /* Inherit the black color from the body */
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
