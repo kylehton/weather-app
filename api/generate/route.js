@@ -35,8 +35,10 @@ export async function getTemp(City, State, Country, PostalCode) {
     const temp = weatherData.daily[0].temp.day;
     const high = weatherData.daily[0].temp.max;
     const low = weatherData.daily[0].temp.min;
+    const description = weatherData.current.weather[0].description;
 
-    return `The temperature in ${City}, ${State}, ${Country}, ${PostalCode} is ${temp}°F. The high for today is ${high}°F and the low is ${low}°F.`;
+    return `The temperature in ${City}, ${State}, ${Country}, ${PostalCode} is ${temp}°F. The high for today is ${high}°F and the low is ${low}°F.
+    The weather can be described as: ${description}`;
   } catch (error) {
     console.error('OpenWeather API request error:', error);
     throw error;

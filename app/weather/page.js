@@ -34,15 +34,15 @@ const Weather = () => {
   return (
     <div>
       <div className="mt-5 ml-5 text-xs">
-        <h1>Weather Location</h1>
+        <h1 className="font-bold">Weather Location</h1>
         <p>City: {City}</p>
         <p>State: {State}</p>
         <p>Country: {Country}</p>
         <p>Postal Code: {PostalCode}</p>
         <br></br>
-          <div>
-            <h2>Weather Data:</h2>
-            <p>{weatherData}</p>
+          <div className='ml-10 mr-10'>
+            <h2 className="text-lg font-semibold">Weather Data:</h2>
+            <p className='text-lg'>{weatherData}</p>
           </div>
         
       </div>
