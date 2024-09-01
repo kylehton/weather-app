@@ -32,7 +32,7 @@ export async function getTemp(City, State, Country, PostalCode) {
 
     console.log(weatherResponse);
     const weatherData = await weatherResponse.json();
-    const temp = weatherData.current.temp;
+    const temp = weatherData.daily[0].temp.day;
     const high = weatherData.daily[0].temp.max;
     const low = weatherData.daily[0].temp.min;
 
