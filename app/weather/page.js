@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
@@ -7,10 +7,10 @@ import { getTemp } from '/api/generate/route.js'; // Adjust the path if necessar
 
 const Weather = () => {
   const searchParams = useSearchParams();
-  const City = searchParams.get('City');
-  const State = searchParams.get('State');
-  const Country = searchParams.get('Country');
-  const PostalCode = searchParams.get('PostalCode');
+  const City = searchParams?.get('City') || '';
+  const State = searchParams?.get('State') || '';
+  const Country = searchParams?.get('Country') || '';
+  const PostalCode = searchParams?.get('PostalCode') || '';
 
   const [weatherData, setWeatherData] = useState('');
   const [error, setError] = useState('');
@@ -25,6 +25,8 @@ const Weather = () => {
           setError('Failed to fetch weather data');
           console.error('Error fetching weather data:', err);
         }
+      } else {
+        setError('Incomplete location information provided');
       }
     }
 
@@ -35,16 +37,19 @@ const Weather = () => {
     <div>
       <div className="mt-5 ml-5 text-xs">
         <h1 className="font-bold">Weather Location</h1>
-        <p>City: {City}</p>
-        <p>State: {State}</p>
-        <p>Country: {Country}</p>
-        <p>Postal Code: {PostalCode}</p>
+        <p>City: {City || 'N/A'}</p>
+        <p>State: {State || 'N/A'}</p>
+        <p>Country: {Country || 'N/A'}</p>
+        <p>Postal Code: {PostalCode || 'N/A'}</p>
         <br></br>
-          <div className='ml-10 mr-10'>
-            <h2 className="text-lg font-semibold">Weather Data:</h2>
+        <div className='ml-10 mr-10'>
+          <h2 className="text-lg font-semibold">Weather Data:</h2>
+          {error ? (
+            <p className="text-red-500">{error}</p>
+          ) : (
             <p className='text-lg'>{weatherData}</p>
-          </div>
-        
+          )}
+        </div>
       </div>
     </div>
   );
