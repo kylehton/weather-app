@@ -4,7 +4,6 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Box, Modal, Button, TextField } from '@mui/material';
-import { configDotenv } from 'dotenv';
 
 export default function Home() {
   const [City, setCity] = useState('');

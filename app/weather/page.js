@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Typography } from '@mui/material'; 
 import { getTemp } from '/api/generate/route.js'; // Adjust the path if necessary
@@ -12,10 +12,10 @@ const Weather = () => {
   const Country = searchParams?.get('Country') || '';
   const PostalCode = searchParams?.get('PostalCode') || '';
 
-  const [weatherData, setWeatherData] = useState('');
-  const [error, setError] = useState('');
+  const [weatherData, setWeatherData] = React.useState('');
+  const [error, setError] = React.useState('');
 
-  useEffect(() => {
+  React.useEffect(() => {
     async function fetchWeather() {
       if (City && State && Country && PostalCode) {
         try {
@@ -55,4 +55,12 @@ const Weather = () => {
   );
 };
 
-export default Weather;
+const WeatherPage = () => {
+  return (
+    <Suspense fallback={<div>Loading weather data...</div>}>
+      <Weather />
+    </Suspense>
+  );
+};
+
+export default WeatherPage;

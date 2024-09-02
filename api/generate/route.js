@@ -1,7 +1,6 @@
 import fetch from 'node-fetch';
 require('dotenv').config();
 
-
 const apiKey = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY;
 
 async function getCoordinates(City, State, Country, PostalCode) {
@@ -30,7 +29,6 @@ export async function getTemp(City, State, Country, PostalCode) {
       throw new Error('Failed to fetch weather data');
     }
 
-    console.log(weatherResponse);
     const weatherData = await weatherResponse.json();
     const temp = weatherData.current.temp;
     const high = weatherData.daily[0].temp.max;
@@ -42,5 +40,16 @@ export async function getTemp(City, State, Country, PostalCode) {
   } catch (error) {
     console.error('OpenWeather API request error:', error);
     throw error;
+  }
+}
+
+export default async function handler(req, res) {
+  const { City, State, Country, PostalCode } = req.query;
+
+  try {
+    const weatherData = await getTemp(City, State, Country, PostalCode);
+    res.status(200).json({ weatherData });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch weather data' });
   }
 }
